@@ -74,7 +74,7 @@ def removeLayer(layer):
 #
 ##################################################################
 def warpProject(inLayer, idx, outFile):
-	prjResult = processing.run("gdal:warpreproject", { 'DATA_TYPE' : 0, 'EXTRA' : '', 'INPUT' : inLayer, 'MULTITHREADING' : False, 'NODATA' : None, 'OPTIONS' : '', 'OUTPUT' : outFile, 'RESAMPLING' : 0, 'SOURCE_CRS' : None, 'TARGET_CRS' : QgsCoordinateReferenceSystem('EPSG:7791'), 'TARGET_EXTENT' : None, 'TARGET_EXTENT_CRS' : None, 'TARGET_RESOLUTION' : None })
+	prjResult = processing.run("gdal:warpreproject", { 'DATA_TYPE' : 0, 'EXTRA' : '', 'INPUT' : inLayer, 'MULTITHREADING' : False, 'NODATA' : None, 'OPTIONS' : '', 'OUTPUT' : outFile, 'RESAMPLING' : 0, 'SOURCE_CRS' : None, 'TARGET_CRS' : QgsCoordinateReferenceSystem('EPSG:32632'), 'TARGET_EXTENT' : None, 'TARGET_EXTENT_CRS' : None, 'TARGET_RESOLUTION' : None })
 
 	"""
 	Add Leyer QGIS
@@ -167,7 +167,10 @@ def export_shapeFile(layer, outFile):
 #
 ##################################################################
 def createPrjFolder(inFolder):
-	outputFolder = os.path.join(inFolder, "output")
+	#outputFolder = os.path.join(inFolder, "output")
+
+	outputFolder = os.path.join(inFolder, os.pardir, 'output')
+
 
 	"""
 	Remove folder if exist
@@ -211,7 +214,7 @@ def process_data(f, inFolder, pathList):
 			layer = import_rasterLayer(inFile, "tmpLayer")
 
 			"""
-			Reproject layer to EPSG:7791
+			Reproject layer to EPSG:32632
 			"""
 			warpLayer = warpProject(layer, count, os.path.join(pathList["dtm"], fileName + "_dtm.tif"))
 
@@ -255,7 +258,7 @@ def process_data(f, inFolder, pathList):
 #
 ##################################################################
 def main():
-	inFolder = "D:\\PROJECTS\\PV_FERRARA\\Data\\dtm"
+	inFolder = "/home/beber/fbk_sandbox/PV-ferrara/data/PV_ferrara/test_data/raw_dtm"
 	# inFolder = "/root/data/input/qgis/2"
 
 	"""

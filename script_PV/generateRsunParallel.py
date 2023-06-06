@@ -10,8 +10,8 @@ import time
 import sys
 import argparse
 
-# MAX_PROCESSOR = mp.cpu_count() - 2
-MAX_PROCESSOR = 4
+MAX_PROCESSOR = mp.cpu_count() - 2
+#MAX_PROCESSOR = 4
 
 ###################################################################
 # This function run shell command
@@ -38,7 +38,7 @@ def create_project(coord_system_code, location_name):
 #
 ###################################################################
 def import_raster(inFile, outName, prjPath):
-    cmd = "grass " + prjPath + " --exec r.import input=" + inFile + " output=" + outName
+    cmd = "grass " + prjPath + " --exec r.import --overwrite input=" + inFile + " output=" + outName
 
     run_grass_cmd(cmd)
 
@@ -172,11 +172,12 @@ def prepare_data(f, prjPath, dataFolder, horizon_list, horizon_step, outFolder):
         """
         Set basename of horizon maps
         """
-        horizon_baseName = f.replace("_dtm.tif", "_dtm_horangle")
+        horizon_baseName = f.replace("_dtm.tif", "_dtm_3x3_merge_horangle")
 
         """
         Prepare command
         """
+        #reference to year 2022
         procs = ()
         out_raster_name = []
         rSun_day = 0
@@ -232,9 +233,9 @@ if __name__ == "__main__":
     """
     Modify these variables according to your project
     """
-    coord_system_code = 7791
+    coord_system_code = 32632
     location_name = "trentinoLocation"
-    linkeFolder = "/root/Data/dtm/output/linkeMap"
+    linkeFolder = "/root/PV_ferrara/test_data/linkeMap/linkeMap"
 
     """
     Set project path
@@ -257,7 +258,7 @@ if __name__ == "__main__":
     """
     Create outputFolder
     """
-    # outFolder = check_outfolder(dataFolder)
+    outFolder = check_outfolder(dataFolder)
 
     """
     Get list of Horizon map

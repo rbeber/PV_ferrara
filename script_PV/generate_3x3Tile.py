@@ -6,7 +6,7 @@ import datetime
 from multiprocessing import Process, Pool
 import multiprocessing as mp
 import timeit
-import time
+import time, sys
 
 
 MAX_PROCESSOR = mp.cpu_count() - 2
@@ -63,7 +63,7 @@ def import_raster(inFile, outName, prjPath):
 #
 ###################################################################
 def set_region(raster_name, res, prjPath, region_type):
-    cmd = "grass " + prjPath + " --exec g.region " + region_type + "=" + raster_name + " grow=500 res=" + str(res)
+    cmd = "grass " + prjPath + " --exec g.region " + region_type + "=" + raster_name + " grow=1001 res=" + str(res)
 
     run_grass_cmd(cmd)
 
@@ -93,7 +93,7 @@ def merge_raster(list_rasterName, prjPath, outName):
 
 
 ###################################################################
-# This function export 9x9 maps
+# This function export 3x3 maps
 #
 ###################################################################
 def export_raster_map(raster_name, prjPath, outFolder):
@@ -102,7 +102,7 @@ def export_raster_map(raster_name, prjPath, outFolder):
     run_grass_cmd(cmd)
 
 
-    cmd_1 = "grass " + prjPath + " -f --exec r.out.gdal -f input=" + str(raster_name) + " output=" + os.path.join(outFolder, "9x9_tile", raster_name + ".tif") + " format=GTiff"
+    cmd_1 = "grass " + prjPath + " -f --exec r.out.gdal -f input=" + str(raster_name) + " output=" + os.path.join(outFolder, "3x3_tile", raster_name + ".tif") + " format=GTiff"
 
     run_grass_cmd(cmd_1)
 
@@ -136,32 +136,39 @@ def process_data(prjPath, f, dataFolder):
         """
         import main raster and vector tile
         """
-        dtm_raster = import_raster( os.path.join(dataFolder, "dtm", f), f.replace(".tif", ""), prjPath )
+        dtm_raster = import_raster( os.path.join(dataFolder, "dtm", f), f.replace(".tif", ".tif"), prjPath )
         tile_vector = import_vector( os.path.join(dataFolder, "tile", f.replace("_dtm.tif", "_tile.shp")), "tile", prjPath )
 
         """
         Convert file name to number
         """
-        splitName = [c for c in f]
-        arr = [splitName[i] for i in (2,3,4,5,6,7,8,9,10)]
-        id_raster = ""
-        for e in arr:
-            id_raster = id_raster + str(e)
-        id_raster = int(id_raster)
 
+        # splitName = [c for c in f]
+        # arr = [splitName[i] for i in (2,3,4,5,6,7,8,9,10)]
+        # id_raster = ""
+        # for e in arr:
+        #     id_raster = id_raster + str(e)
+        # id_raster = int(id_raster)
+
+        # splitName = [c for c in f]
+        # arr = [splitName[i] for i in (0,1,2,3,4,5,6,7)]
+        
+        # f name is something like arr_col-arr_row-dtm_flt_dtm  >>  eg>> 2707-970-dtm_flt_dtm
+        arr_col = int(f[:4])
+        arr_row = int(f[5:8])
+        id_raster = f[:8]
         """
         Get ID of nearest dtm
         """
         nearest_idx = []
-        nearest_idx.append(id_raster + 5)
-        nearest_idx.append(id_raster - 5)
-        nearest_idx.append(id_raster + 500000)
-        nearest_idx.append(id_raster - 500000)
-        nearest_idx.append(id_raster + 500005)
-        nearest_idx.append(id_raster - 500005)
-        nearest_idx.append(id_raster + 499995)
-        nearest_idx.append(id_raster - 499995)
-
+        nearest_idx.append(str(arr_col + 1)+ '-' +str(arr_row   ))
+        nearest_idx.append(str(arr_col + 1)+ '-' +str(arr_row +1))
+        nearest_idx.append(str(arr_col    )+ '-' +str(arr_row +1))
+        nearest_idx.append(str(arr_col - 1)+ '-' +str(arr_row +1))
+        nearest_idx.append(str(arr_col - 1)+ '-' +str(arr_row   ))
+        nearest_idx.append(str(arr_col - 1)+ '-' +str(arr_row -1))
+        nearest_idx.append(str(arr_col    )+ '-' +str(arr_row -1))
+        nearest_idx.append(str(arr_col + 1)+ '-' +str(arr_row -1))
         """
         Import nearest raster
         """
@@ -178,7 +185,7 @@ def process_data(prjPath, f, dataFolder):
         """
         Merge all dtm
         """
-        list_rasterName = f.replace(".tif", "")
+        list_rasterName = f #.replace(".tif", "")
         for raster in rasterName_arr:
             if ( raster is not None ):
                 list_rasterName = list_rasterName + "," + raster
@@ -202,7 +209,7 @@ def process_data(prjPath, f, dataFolder):
 #
 ###################################################################
 if __name__ == "__main__":
-    coord_system_code = 7791
+    coord_system_code = 32632
     location_name = "trentinoLocation"
 
     """
@@ -214,7 +221,8 @@ if __name__ == "__main__":
     """
     Set input data folder
     """
-    dataFolder = "/root/data/input/qgis/2/output"
+    # dataFolder = "/root/data/input/qgis/2/output"
+    dataFolder = "/root/PV_ferrara/test_data/output"
 
     """
     Set project path
@@ -233,7 +241,8 @@ if __name__ == "__main__":
 
     # start_process = False
     for f in os.listdir( os.path.join(dataFolder, "dtm") ):
-        process_data(prjPath, f, dataFolder)
+        if ("xml" not in f):
+            process_data(prjPath, f, dataFolder)
 
 
 

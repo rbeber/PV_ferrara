@@ -1,0 +1,13 @@
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_May_gf.tif ./re_prj/rprj_TL2010_May_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Jul_gf.tif ./re_prj/rprj_TL2010_Jul_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Nov_gf.tif ./re_prj/rprj_TL2010_Nov_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Feb_gf.tif ./re_prj/rprj_TL2010_Feb_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Year_gf.tif ./re_prj/rprj_TL2010_Year_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Jun_gf.tif ./re_prj/rprj_TL2010_Jun_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Jan_gf.tif ./re_prj/rprj_TL2010_Jan_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Sep_gf.tif ./re_prj/rprj_TL2010_Sep_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Dec_gf.tif ./re_prj/rprj_TL2010_Dec_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Oct_gf.tif ./re_prj/rprj_TL2010_Oct_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Mar_gf.tif ./re_prj/rprj_TL2010_Mar_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Aug_gf.tif ./re_prj/rprj_TL2010_Aug_gf.tif 
+gdalwarp -overwrite -s_srs EPSG:4326 -t_srs EPSG:32632 -r cubic -of GTiff -srcnodata "n/a" -dstnodata NoData -cutline ../Italy_FE/italy_FE_area.shp ./LINKE/TL2010_Apr_gf.tif ./re_prj/rprj_TL2010_Apr_gf.tif 

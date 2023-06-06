@@ -132,12 +132,12 @@ def prepare_data(r, prjPath, dataFolder, horizon_start, horizon_end, horizon_ste
         """
         Import Raster
         """
-        raster_name = import_raster(os.path.join(dataFolder, "dtm", r), r, prjPath)
+        raster_name = import_raster(os.path.join(dataFolder, "3x3_tile", r), r, prjPath)
 
         """
         Import vector tile
         """
-        tile_name = import_vector(os.path.join(dataFolder, "tile", r.replace("_dtm.tif", "_tile.shp")), "tile", prjPath)
+        tile_name = import_vector(os.path.join(dataFolder, "tile", r.replace("_dtm_3x3_merge.tif", "_tile.shp")), "tile", prjPath)
         
         """
         Set grass region
@@ -205,13 +205,13 @@ if __name__ == "__main__":
     """
     Modify these variables according to your project
     """
-    coord_system_code = 7791
-    dataFolder = "/root/Data/dtm/output"
+    coord_system_code = 32632
+    dataFolder = "/root/PV_ferrara/test_data/output"
     max_proccess_step = 4                           # Indicates how many steps to process each individual r.horizon process
     horizon_step = 10
-    horizon_start = 0
+    horizon_start = 0  #not used?
     horizon_end = 360
-    horizon_bufferzone = 500
+    horizon_bufferzone = 1001
     horizon_name = "horangle"
     horizon_maxdistance = 1500
 
@@ -232,7 +232,7 @@ if __name__ == "__main__":
     Compute horizon maps
     """
     start_process = False
-    for r in sorted( os.listdir(os.path.join(dataFolder, "dtm")) ):
+    for r in sorted( os.listdir(os.path.join(dataFolder, "3x3_tile")) ):
         # if (start_dtm in r):
         #     start_process = True
         # elif (last_dtm in r):

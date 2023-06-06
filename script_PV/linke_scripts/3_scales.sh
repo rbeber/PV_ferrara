@@ -1,0 +1,13 @@
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Oct_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Oct_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Mar_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Mar_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Dec_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Dec_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Year_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Year_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Sep_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Sep_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Jan_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Jan_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Jun_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Jun_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_May_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_May_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Nov_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Nov_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Feb_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Feb_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Jul_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Jul_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Apr_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Apr_gf.tif --calc="A/20" --overwrite --type=Float32 
+gdal_calc.py -A ./crop_FE/cFE_cut_rprj_TL2010_Aug_gf.tif --outfile=./scaled/sca_cFE_cut_rprj_TL2010_Aug_gf.tif --calc="A/20" --overwrite --type=Float32 
