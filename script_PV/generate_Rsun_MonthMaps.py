@@ -284,6 +284,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
+    """
+    Get Start Time
+    """
+    start_time_main = timeit.default_timer()
+
     dataFolder = args.dataFolder
     outFolder = args.outFolder
     process = args.process
@@ -348,3 +353,9 @@ if __name__ == "__main__":
     
     else:
         print ("Error, process doesn't exist. Use 'rsun_month' or 'rsun_year'")
+
+    """
+    Get Elapsed Time
+    """
+    elapsed_time = timeit.default_timer() - start_time_main
+    print ("---> Time elapsed r.sun: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))

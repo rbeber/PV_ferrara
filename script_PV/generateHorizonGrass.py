@@ -206,7 +206,7 @@ if __name__ == "__main__":
     Modify these variables according to your project
     """
     coord_system_code = 32632
-    dataFolder = "/root/PV_ferrara/test_data/output"
+    dataFolder = "/root/PV_ferrara/FE_data/output"
     max_proccess_step = 4                           # Indicates how many steps to process each individual r.horizon process
     horizon_step = 10
     horizon_start = 0  #not used?

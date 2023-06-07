@@ -222,6 +222,10 @@ if __name__ == "__main__":
     parser.add_argument('--horizon_step', help='horizon_step value')
 
     args = parser.parse_args()
+    """
+    Get Start Time
+    """
+    start_time_main = timeit.default_timer()
 
     dataFolder = args.dataFolder
     outFolder = args.outFolder
@@ -235,7 +239,7 @@ if __name__ == "__main__":
     """
     coord_system_code = 32632
     location_name = "trentinoLocation"
-    linkeFolder = "/root/PV_ferrara/test_data/linkeMap/linkeMap"
+    linkeFolder = "/root/PV_ferrara/FE_data/linkeMap/linkeMap"
 
     """
     Set project path
@@ -273,3 +277,9 @@ if __name__ == "__main__":
         if (".shp" in f):
             dtm_name = f.replace("_tile.shp", "_dtm.tif")
             prepare_data(dtm_name, prjPath, dataFolder, horizon_list, horizon_step, outFolder)
+
+    """
+    Get Elapsed Time
+    """
+    elapsed_time = timeit.default_timer() - start_time_main
+    print ("---> Time elapsed r.sun: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))

@@ -50,7 +50,7 @@ def import_vector(inFile, outName, prjPath):
 ###################################################################
 def import_raster(inFile, outName, prjPath):
     if ( os.path.exists(inFile) ):
-        cmd = "grass " + prjPath + " --exec r.import input=" + inFile + " output=" + outName
+        cmd = "grass " + prjPath + " --exec r.import --overwrite input=" + inFile + " output=" + outName
 
         run_grass_cmd(cmd)
 
@@ -63,7 +63,7 @@ def import_raster(inFile, outName, prjPath):
 #
 ###################################################################
 def set_region(raster_name, res, prjPath, region_type):
-    cmd = "grass " + prjPath + " --exec g.region " + region_type + "=" + raster_name + " grow=1001 res=" + str(res)
+    cmd = "grass " + prjPath + " --exec g.region " + region_type + "=" + raster_name + " res=" + str(res)
 
     run_grass_cmd(cmd)
 
@@ -102,7 +102,7 @@ def export_raster_map(raster_name, prjPath, outFolder):
     run_grass_cmd(cmd)
 
 
-    cmd_1 = "grass " + prjPath + " -f --exec r.out.gdal -f input=" + str(raster_name) + " output=" + os.path.join(outFolder, "3x3_tile", raster_name + ".tif") + " format=GTiff"
+    cmd_1 = "grass " + prjPath + " -f --exec r.out.gdal -f input=" + str(raster_name) + " output=" + os.path.join(outFolder, "mosaic_month", raster_name + ".tif") + " format=GTiff"
 
     run_grass_cmd(cmd_1)
 
@@ -112,7 +112,7 @@ def export_raster_map(raster_name, prjPath, outFolder):
 #
 ###################################################################
 def check_outfolder(dataFolder):
-    outFolder = os.path.join(dataFolder, "3x3_tile")
+    outFolder = os.path.join(dataFolder, "mosaic_month")
 
     if (os.path.isdir(outFolder)):
         shutil.rmtree(outFolder)
@@ -130,87 +130,54 @@ def remove_raster(list_rasterName, prjPath):
     run_grass_cmd(cmd)
 
 
+def process_data(prjPath, month, dataFolder):
 
-def process_data(prjPath, f, dataFolder):
-    if (".tif" in f):
-        """
-        import main raster and vector tile
-        """
-        dtm_raster = import_raster( os.path.join(dataFolder, "dtm", f), f.replace(".tif", ".tif"), prjPath )
-        tile_vector = import_vector( os.path.join(dataFolder, "tile", f.replace("_dtm.tif", "_tile.shp")), "tile", prjPath )
+    path = os.path.join(dataFolder, "rSun_sum")
+    #
+    print('#>>>>>>>>>>>>  ', month)
+    #list of all files in rSun_sum containing the month
+    month_list= []
+    for root, dirs, files in os.walk(path):
+	    for file in files:
+		    if(file.endswith(month)):
+			    month_list.append(os.path.join(root,file))
 
-        """
-        Convert file name to number
-        """
 
-        # splitName = [c for c in f]
-        # arr = [splitName[i] for i in (2,3,4,5,6,7,8,9,10)]
-        # id_raster = ""
-        # for e in arr:
-        #     id_raster = id_raster + str(e)
-        # id_raster = int(id_raster)
+    """
+    Import all raster with same month
+    """
+    rasterName_arr = []
+    for iter, n_id in enumerate(month_list):
+        rasterName = n_id.split("rSun_sum/",1)[1]
+        rasterName_arr.append( import_raster( os.path.join(dataFolder, "rSun_sum", rasterName), rasterName.split("/",1)[1], prjPath ) )
+    
 
-        # splitName = [c for c in f]
-        # arr = [splitName[i] for i in (0,1,2,3,4,5,6,7)]
-        
-        # f name is something like arr_col-arr_row-dtm_flt_dtm  >>  eg>> 2707-970-dtm_flt_dtm
-        arr_col = int(f[:4])
-        arr_row = int(f[5:8])
-        id_raster = f[:8]
-        """
-        Get ID of nearest dtm
-        """
-        #idea is moving from center tile in a spirale up left closing down right 
-        nearest_idx = []
-        # right
-        nearest_idx.append(str(arr_col + 1)+ '-' +str(arr_row   ))
-        # up
-        nearest_idx.append(str(arr_col + 1)+ '-' +str(arr_row +1))
-        # left
-        nearest_idx.append(str(arr_col    )+ '-' +str(arr_row +1))
-        # left
-        nearest_idx.append(str(arr_col - 1)+ '-' +str(arr_row +1))
-        # down
-        nearest_idx.append(str(arr_col - 1)+ '-' +str(arr_row   ))
-        # down
-        nearest_idx.append(str(arr_col - 1)+ '-' +str(arr_row -1))
-        # right
-        nearest_idx.append(str(arr_col    )+ '-' +str(arr_row -1))
-        # right
-        nearest_idx.append(str(arr_col + 1)+ '-' +str(arr_row -1))
-        """
-        Import nearest raster
-        """
-        rasterName_arr = []
-        for iter, n_id in enumerate(nearest_idx):
-            rasterName = f.replace(str(id_raster), str(n_id))
-            rasterName_arr.append( import_raster( os.path.join(dataFolder, "dtm", rasterName), rasterName.replace(".tif", ""), prjPath ) )
-        
-        """
-        Set region
-        """
-        set_region(tile_vector, 1, prjPath, "vector")
 
-        """
-        Merge all dtm
-        """
-        list_rasterName = f #.replace(".tif", "")
-        for raster in rasterName_arr:
-            if ( raster is not None ):
-                list_rasterName = list_rasterName + "," + raster
-        
-        raster_name = merge_raster(list_rasterName, prjPath, f.replace(".tif", "_3x3_merge"))
 
-        """
-        Export raster map
-        """
-        export_raster_map(raster_name, prjPath, dataFolder)
+    list_rasterName = str()#[]#f #.replace(".tif", "")
+    for raster in rasterName_arr:
+        if ( raster is not None ):
+            list_rasterName = list_rasterName + "," + raster
+    """
+    Set region
+    """
+    set_region(list_rasterName, 1, prjPath, "raster")
+    
+    """
+    Merge all dtm
+    """   
+    raster_name = merge_raster(list_rasterName, prjPath, f"{month}_mosaic")
 
-        """
-        Delete all rester
-        """
-        list_rasterName = list_rasterName + "," + str(raster_name)
-        remove_raster(list_rasterName, prjPath)
+    """
+    Export raster map
+    """
+    export_raster_map(raster_name, prjPath, dataFolder)
+
+    """
+    Delete all rester
+    """
+    list_rasterName = list_rasterName + "," + str(raster_name)
+    remove_raster(list_rasterName, prjPath)
 
 
 ###################################################################
@@ -220,6 +187,11 @@ def process_data(prjPath, f, dataFolder):
 if __name__ == "__main__":
     coord_system_code = 32632
     location_name = "trentinoLocation"
+
+    """
+    Get Start Time
+    """
+    start_time_main = timeit.default_timer()
 
     """
     Set name of first and last dtm to be processed
@@ -249,10 +221,14 @@ if __name__ == "__main__":
     check_outfolder(dataFolder)
 
     # start_process = False
-    for f in os.listdir( os.path.join(dataFolder, "dtm") ):
-        if ("xml" not in f):
-            process_data(prjPath, f, dataFolder)
+    for month in ['january','february','march','april','may','june','july','august','september','october','november','december']:
+        process_data(prjPath, month, dataFolder)
 
+    """
+    Get Elapsed Time
+    """
+    elapsed_time = timeit.default_timer() - start_time_main
+    print ("---> Time elapsed r.sun: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
 
 
         

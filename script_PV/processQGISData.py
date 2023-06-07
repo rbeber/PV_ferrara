@@ -258,7 +258,7 @@ def process_data(f, inFolder, pathList):
 #
 ##################################################################
 def main():
-	inFolder = "/home/beber/fbk_sandbox/PV-ferrara/data/PV_ferrara/test_data/raw_dtm"
+	inFolder = "/home/beber/fbk_sandbox/PV-ferrara/data/PV_ferrara/FE_data/raw_dtm"
 	# inFolder = "/root/data/input/qgis/2"
 
 	"""
