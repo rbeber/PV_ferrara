@@ -11,8 +11,9 @@ docker run -it -v /home/beber/fbk_sandbox/PV-ferrara/data/PV_ferrara/:/root/PV_f
 ```
 3) run scripts from within `/root/PV_ferrara` folder
 4) run `processQGISData.py` script from qgis Python Console settin gproper folder
-5) run `generate_3x3Tile.py` script from within the docker image `grass_v2   v78   5153b58fdd12  `
-6) create linkeMap for AOI >> https://www.soda-pro.com/help/general-knowledge/linke-turbidity-factor
+5) `mkdir ../FE_data/output/3x3_tile`
+6) run `generate_3x3Tile.py` script from within the docker image `grass_v2   v78   5153b58fdd12  `
+7) create linkeMap for AOI >> https://www.soda-pro.com/help/general-knowledge/linke-turbidity-factor
   explanation: https://atmosphere.copernicus.eu/sites/default/files/2019-01/CAMS72_2015SC3_D72.1.3.1_2018_UserGuide_v1_201812.pdf
 7) WARP create your own LINKE map
 ```
@@ -51,4 +52,6 @@ python3 generate_Rsun_MonthMaps.py --dataFolder /root/PV_ferrara/test_data/outpu
 
 ## TODOS:
 1) integrate border DTM with coarser res EU-DEM
-2) 
+2) solve issue with xml file produced by QGIS script
+3) integrate PIPELINE tu RUN entirely
+4) script to merge rSun outputs
