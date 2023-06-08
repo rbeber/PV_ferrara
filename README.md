@@ -48,6 +48,13 @@ python3 generate_Rsun_MonthMaps.py --dataFolder /root/PV_ferrara/test_data/outpu
 ```
 
 
+## UTILS:
+delete xml files
+
+```
+find . -name "*.xml" -type f|xargs rm -f
+```
+
 ## TODOS:
 1) integrate border DTM with coarser res EU-DEM
 2) solve issue with xml file produced by QGIS script
