@@ -228,7 +228,7 @@ if __name__ == "__main__":
     Get Elapsed Time
     """
     elapsed_time = timeit.default_timer() - start_time_main
-    print ("---> Time elapsed r.sun: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
+    print ("---> Time elapsed mosaic: " + time.strftime("%H:%M:%S", time.gmtime(elapsed_time)))
 
 
         

@@ -231,7 +231,7 @@ if __name__ == "__main__":
     """
     Compute horizon maps
     """
-    start_process = False
+    # start_process = False
     for r in sorted( os.listdir(os.path.join(dataFolder, "3x3_tile")) ):
         # if (start_dtm in r):
         #     start_process = True
