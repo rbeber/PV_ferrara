@@ -31,6 +31,10 @@ find ./cut -type f -name "*.tif" -printf "gdalwarp -overwrite -s_srs epsg:32632 
 ```
 11) run `. 3_scales.sh`
 
+```
+find ./crop_FE -type f -name "*.tif" -printf "gdal_calc.py -A ./crop_FE/%f --outfile=./scaled/sca_%f --calc="A/20" --overwrite --type=Float32 \n" > 3_scales.sh  
+```
+
 12) `cp -r scaled linkeMap`
 13) `cd linkeMap/`
 14) `rename 's/sca_cFE_cut_rprj_TL2010_//' *.tif`
