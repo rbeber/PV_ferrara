@@ -62,8 +62,9 @@ def import_raster(inFile, outName, prjPath):
 # This function set grass region
 #
 ###################################################################
+# the region grow has to be set to 1000 (square tile pixel size)   
 def set_region(raster_name, res, prjPath, region_type):
-    cmd = "grass " + prjPath + " --exec g.region " + region_type + "=" + raster_name + " grow=1001 res=" + str(res)
+    cmd = "grass " + prjPath + " --exec g.region " + region_type + "=" + raster_name + " grow=1000 res=" + str(res)
 
     run_grass_cmd(cmd)
 
@@ -218,8 +219,9 @@ def process_data(prjPath, f, dataFolder):
 #
 ###################################################################
 if __name__ == "__main__":
-    coord_system_code = 32632
-    location_name = "trentinoLocation"
+    #https://epsg.io/7791
+    coord_system_code = 7791
+    location_name = "FerraraLocation"
 
     """
     Set name of first and last dtm to be processed

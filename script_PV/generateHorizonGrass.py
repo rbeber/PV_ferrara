@@ -200,18 +200,19 @@ if __name__ == "__main__":
     """
     Do not modify this variable
     """
-    location_name = "/home/trentinoLocation"
+    location_name = "/home/FerraraLocation"
 
     """
     Modify these variables according to your project
     """
-    coord_system_code = 32632
+    coord_system_code = 7791
     dataFolder = "/root/PV_ferrara/FE_data/output"
     max_proccess_step = 4                           # Indicates how many steps to process each individual r.horizon process
     horizon_step = 10
     horizon_start = 0  #not used?
     horizon_end = 360
-    horizon_bufferzone = 1001
+    #horizon_bufferzone set as square tile pixel size
+    horizon_bufferzone = 1000
     horizon_name = "horangle"
     horizon_maxdistance = 1500
 

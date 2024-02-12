@@ -1,4 +1,5 @@
 from qgis.core import *
+from qgis.utils import iface
 import os
 import processing
 import sys
@@ -74,7 +75,7 @@ def removeLayer(layer):
 #
 ##################################################################
 def warpProject(inLayer, idx, outFile):
-	prjResult = processing.run("gdal:warpreproject", { 'DATA_TYPE' : 0, 'EXTRA' : '', 'INPUT' : inLayer, 'MULTITHREADING' : False, 'NODATA' : None, 'OPTIONS' : '', 'OUTPUT' : outFile, 'RESAMPLING' : 0, 'SOURCE_CRS' : None, 'TARGET_CRS' : QgsCoordinateReferenceSystem('EPSG:32632'), 'TARGET_EXTENT' : None, 'TARGET_EXTENT_CRS' : None, 'TARGET_RESOLUTION' : None })
+	prjResult = processing.run("gdal:warpreproject", { 'DATA_TYPE' : 0, 'EXTRA' : '', 'INPUT' : inLayer, 'MULTITHREADING' : False, 'NODATA' : None, 'OPTIONS' : '', 'OUTPUT' : outFile, 'RESAMPLING' : 0, 'SOURCE_CRS' : None, 'TARGET_CRS' : QgsCoordinateReferenceSystem('EPSG:7791'), 'TARGET_EXTENT' : None, 'TARGET_EXTENT_CRS' : None, 'TARGET_RESOLUTION' : None })
 
 	"""
 	Add Leyer QGIS
@@ -214,7 +215,7 @@ def process_data(f, inFolder, pathList):
 			layer = import_rasterLayer(inFile, "tmpLayer")
 
 			"""
-			Reproject layer to EPSG:32632
+			Reproject layer to EPSG:7791
 			"""
 			warpLayer = warpProject(layer, count, os.path.join(pathList["dtm"], fileName + "_dtm.tif"))
 

@@ -273,8 +273,8 @@ if __name__ == "__main__":
     """
     Do not modify this variable
     """
-    location_name = "/home/trentinoLocation"
-    coord_system_code = 32632
+    location_name = "/home/FerraraLocation"
+    coord_system_code = 7791
 
     parser = argparse.ArgumentParser(description='Group rsun by month and year.')
     parser.add_argument('--dataFolder', help='input dataFolder')

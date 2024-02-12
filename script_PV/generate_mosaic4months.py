@@ -185,8 +185,8 @@ def process_data(prjPath, month, dataFolder):
 #
 ###################################################################
 if __name__ == "__main__":
-    coord_system_code = 32632
-    location_name = "trentinoLocation"
+    coord_system_code = 7791
+    location_name = "/home/FerraraLocation"
 
     """
     Get Start Time

@@ -237,9 +237,9 @@ if __name__ == "__main__":
     """
     Modify these variables according to your project
     """
-    coord_system_code = 32632
-    location_name = "trentinoLocation"
-    linkeFolder = "/root/PV_ferrara/FE_data/linkeMap/linkeMap"
+    coord_system_code = 7791
+    location_name = "/home/FerraraLocation"
+    linkeFolder = "/root/PV_ferrara/FE_data/linkeMap/linkeMap_7791"
 
     """
     Set project path
